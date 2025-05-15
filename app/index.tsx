@@ -1,8 +1,8 @@
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef, } from "react";
 import { View, SafeAreaView, Animated, Easing } from "react-native";
-import CoracaoDeVidro from "../../assets/images/Coração_de_vidro.png";
-import MainButton from "../MainButton/MainButton";
+import CoracaoDeVidro from "../assets/images/Coração_de_vidro.png";
+import MainButton from "../components/MainButton/MainButton";
 
 export default function Home() {
   const link = useRouter();
