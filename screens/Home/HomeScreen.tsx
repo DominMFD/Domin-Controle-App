@@ -22,7 +22,7 @@ export function HomeScreen() {
 
   return (
     <SafeAreaView className="bg-primary_background flex-1 justify-start">
-      <View className="w-full flex-1">
+      <View>
         <Animated.Image
           className="w-3/6 object-auto m-auto"
           style={{ resizeMode: "contain", transform: [{ scale: pulse }] }}
@@ -30,7 +30,7 @@ export function HomeScreen() {
         />
       </View>
       <View className="justify-center items-center flex-1">
-        <View className="justify-center items-center gap-5 flex-1 w-full max-w-80">
+        <View className="justify-start items-center gap-5 flex-1 w-full max-w-80">
           <ButtonLink href="/(tabs)/exams" LinkComponent={Link}>
             Exames
           </ButtonLink>
