@@ -1,9 +1,10 @@
+import ContentTemplate from "@/components/ContentTemplate/ContentTemplate";
 import { View, Text } from "react-native";
 
 export default function TabTwoScreen() {
   return (
-    <View>
-      <Text>Remédios</Text>
-    </View>
+    <ContentTemplate>
+      <Text>Oxigenação</Text>
+    </ContentTemplate>
   );
 }

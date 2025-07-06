@@ -3,7 +3,7 @@ import Svg, { Path, SvgProps } from "react-native-svg";
 export function MedicinesIcon(props: SvgProps) {
   return (
     <Svg viewBox="0 0 48 48" {...props}>
-      <Svg fill="currentColor">
+      <Svg fill={props.color}>
         <Path
           fillRule="evenodd"
           d="M42 14a8 8 0 1 1-16 0a8 8 0 0 1 16 0m-3.718.985a1 1 0 0 1-1.198.75l-6.616-1.52a1 1 0 0 1 .448-1.95l6.616 1.521a1 1 0 0 1 .75 1.199"

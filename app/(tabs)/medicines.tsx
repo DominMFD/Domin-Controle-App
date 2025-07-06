@@ -1,9 +1,10 @@
+import ContentTemplate from "@/components/ContentTemplate/ContentTemplate";
 import { View, Text } from "react-native";
 
 export default function Remedios() {
   return (
-    <View>
+    <ContentTemplate>
       <Text>Remédios</Text>
-    </View>
+    </ContentTemplate>
   );
 }

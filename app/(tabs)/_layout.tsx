@@ -4,6 +4,9 @@ import { Platform } from "react-native";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { PapperIcon } from "@/assets/images/icons/PapperIcon";
+import { TabBar } from "@/components/TabBar/TabBar";
+import { OxygenationIcon } from "@/assets/images/icons/OxygenationIcon";
+import { MedicinesIcon } from "@/assets/images/icons/MedicinesIcon";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -13,21 +16,16 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: "absolute",
-          },
-          default: {},
-        }),
+        tabBarStyle: { display: "none" },
       }}
+      tabBar={props => <TabBar {...props} />}
     >
       <Tabs.Screen
         name="exams"
         options={{
           title: "Exames",
           tabBarIcon: ({ color }) => (
-            <PapperIcon width={24} height={24} color="#000" />
+            <PapperIcon width={35} height={35} color={color} />
           ),
         }}
       />
@@ -36,7 +34,7 @@ export default function TabLayout() {
         options={{
           title: "Oxigenação",
           tabBarIcon: ({ color }) => (
-            <PapperIcon width={24} height={24} color="#000" />
+            <OxygenationIcon width={38} height={35} color={color} />
           ),
         }}
       />
@@ -45,7 +43,7 @@ export default function TabLayout() {
         options={{
           title: "Remédios",
           tabBarIcon: ({ color }) => (
-            <PapperIcon width={24} height={24} color="#000" />
+            <MedicinesIcon width={35} height={35} color={color} />
           ),
         }}
       />
