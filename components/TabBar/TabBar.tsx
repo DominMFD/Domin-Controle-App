@@ -12,13 +12,10 @@ export function TabBar({
       className="w-full flex flex-row bg-second_background justify-between items-center"
       style={{
         shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: -1,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3,
-        elevation: 1,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.14,
+        shadowRadius: 4,
+        elevation: 6,
       }}
     >
       {state.routes.map((route, index) => {

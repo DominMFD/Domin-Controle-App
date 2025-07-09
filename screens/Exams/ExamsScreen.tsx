@@ -1,5 +1,10 @@
-import { View } from "react-native";
+import Header from "@/components/Header/Header";
+import React from "react";
 
 export default function ExamsScreen() {
-  return <View></View>;
+  return (
+    <>
+      <Header title="Oxigenação" />
+    </>
+  );
 }
