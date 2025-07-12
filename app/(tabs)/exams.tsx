@@ -1,4 +1,4 @@
-import ContentTemplate from "@/components/ContentTemplate/ContentTemplate";
+import ContentTemplate from "@/components/ContainerTemplate/ContainerTemplate";
 import ExamsScreen from "@/screens/Exams/ExamsScreen";
 import { SafeAreaView } from "react-native";
 

@@ -1,4 +1,4 @@
-import ContentTemplate from "@/components/ContentTemplate/ContentTemplate";
+import ContentTemplate from "@/components/ContainerTemplate/ContainerTemplate";
 import { View, Text } from "react-native";
 
 export default function Remedios() {

@@ -1,9 +1,16 @@
-import { SafeAreaView, View } from "react-native";
+import { ScrollView } from "react-native";
+import { ContentTemplateProps } from "./ContentTemplate.types";
 
-export default function ContentTemplate({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <View className="bg-primary_background h-full">{children}</View>;
+export default function ContentTemplate({ children }: ContentTemplateProps) {
+  return (
+    <ScrollView
+      contentContainerStyle={{
+        paddingHorizontal: 20,
+        paddingVertical: 16,
+        gap: 16,
+      }}
+    >
+      {children}
+    </ScrollView>
+  );
 }
