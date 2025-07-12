@@ -4,7 +4,7 @@ import { View, Text, Pressable } from "react-native";
 export default function ExamsItem() {
   return (
     <View
-      className="bg-main_white flex-row p-4 rounded-[20px] gap-2 items-center"
+      className="bg-main_white flex-row p-4 rounded-[20px] gap-2 items-center relative"
       style={{
         elevation: 3,
       }}
@@ -19,7 +19,7 @@ export default function ExamsItem() {
       <Text className="font-medium text-lg text-main_black flex-1 text-center">
         3/4
       </Text>
-      <Pressable className="items-center justify-center">
+      <Pressable className="items-center justify-center absolute right-3">
         <XIcon width={15} height={15} strokeWidth={"1.5"} />
       </Pressable>
     </View>

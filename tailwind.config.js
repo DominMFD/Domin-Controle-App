@@ -20,6 +20,7 @@ module.exports = {
         main_red: "#B22222",
         main_black: "#1A1A1A",
         main_white: "#F9FAFB",
+        border_color: "#ADADAD",
       },
     },
   },
