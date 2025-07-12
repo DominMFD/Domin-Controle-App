@@ -5,5 +5,7 @@ export default function ContainerTemplate({
 }: {
   children: React.ReactNode;
 }) {
-  return <View className="bg-primary_background h-full">{children}</View>;
+  return (
+    <View className="bg-primary_background h-full relative">{children}</View>
+  );
 }
