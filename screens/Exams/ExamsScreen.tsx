@@ -13,12 +13,13 @@ export default function ExamsScreen() {
 
   const insets = useSafeAreaInsets();
   return (
-    <View style={{ flex: 1, paddingBottom: insets.bottom }}>
+    <>
       <Header title="Exames">
         <FieldOrdering fields={examsFields} />
       </Header>
       <ExamsList />
       <AddButton />
-    </View>
+      <AddExamModal />
+    </>
   );
 }
