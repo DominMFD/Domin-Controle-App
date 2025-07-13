@@ -4,7 +4,8 @@ import ExamsList from "./components/ExamsContent/ExamsContent";
 import FieldOrdering from "../../components/FieldOrdering/FieldOrdering";
 import { Fields } from "../../components/FieldOrdering/FieldOrdering.types";
 import AddButton from "@/components/AddButton/AddButton";
-
+import AddModalTemplate from "@/components/AddModalTemplate/AddModalTemplate";
+import AddExamModal from "./components/AddExamModal/AddExamModal";
 export default function ExamsScreen() {
   const examsFields: Fields[] = ["DATA", "RNI", "HEMA", "MARE"];
 
@@ -15,6 +16,7 @@ export default function ExamsScreen() {
       </Header>
       <ExamsList />
       <AddButton />
+      <AddExamModal />
     </>
   );
 }
