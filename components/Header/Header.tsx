@@ -5,7 +5,7 @@ import { Link } from "expo-router";
 
 export default function Header({ children, title }: HeaderProps) {
   return (
-    <View className="bg-second_background px-5 pt-16 pb-4">
+    <View className="bg-second_background px-5 py-4">
       <View className="flex-row items-center mb-8">
         <Link href={"/"}>
           <ArrowLeft width={24} height={24} color={"#F9FAFB"} />

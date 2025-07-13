@@ -11,6 +11,7 @@ import "react-native-reanimated";
 import "../global.css";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 // previne splash até as fontes carregarem
 SplashScreen.preventAutoHideAsync();
