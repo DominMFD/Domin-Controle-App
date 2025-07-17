@@ -8,14 +8,18 @@ import { useAddExamModal } from "./useAddExamModal";
 import { Controller, Form } from "react-hook-form";
 import CurrencyInput from "react-native-currency-input";
 import { PapperIcon } from "@/assets/images/icons/PapperIcon";
-import { AddExamModalProps } from "./AddExamModal.types";
+import { useExamModalStore } from "../../useExamModalStore";
 
-export default function AddExamModal({
-  modalOpen,
-  toggleModal,
-}: AddExamModalProps) {
-  const { control, errors, handleSubmit, onExamSubmit, handleChange } =
-    useAddExamModal();
+export default function AddExamModal() {
+  const { modalOpen, toggleModal } = useExamModalStore();
+  const {
+    control,
+    errors,
+    handleSubmit,
+    onExamSubmit,
+    handleChange,
+    addExamMutation,
+  } = useAddExamModal();
 
   return (
     <AddModalTemplate modalOpen={modalOpen} toggleModal={toggleModal}>
@@ -129,7 +133,9 @@ export default function AddExamModal({
           </View>
         </View>
         <View className="p-[10.5] justify-center w-full items-center opacity-60">
-          <PapperIcon width={42} height={42} color="#B22222" />
+          <View className="w-[42px] h-[42px]">
+            <PapperIcon width={42} height={42} color="#B22222" />
+          </View>
         </View>
       </View>
     </AddModalTemplate>

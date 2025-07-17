@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import { ExamSchema, ExamSchemaType, RawInput } from "./AddExamSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAddExamMutation } from "./useAddExamMutation";
 
 export function useAddExamModal() {
+  const { addExamMutation } = useAddExamMutation();
   const {
     control,
     handleSubmit,
@@ -21,8 +23,13 @@ export function useAddExamModal() {
     return cleaned;
   };
 
-  const onExamSubmit = (data: ExamSchemaType) => {
-    console.log(data);
+  const onExamSubmit = async (data: ExamSchemaType) => {
+    await addExamMutation.mutateAsync({
+      date: data.data,
+      hematocrito: data.hematocrito,
+      marevan: data.marevan,
+      rni: data.rni,
+    });
   };
 
   return {
@@ -32,5 +39,6 @@ export function useAddExamModal() {
     errors,
     onExamSubmit,
     handleChange,
+    addExamMutation,
   };
 }
