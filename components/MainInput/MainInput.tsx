@@ -15,10 +15,10 @@ export default function MainInput({
           errorMessage && "border border-main_red",
         )}
       >
-        <TextInput {...props} />
+        <TextInput {...props} className="flex-1" />
         {children}
       </View>
-      <Text className="text-[#DC3545] text-sm">{errorMessage}</Text>
+      <Text className="text-[#DC3545] text-sm h-[14px]">{errorMessage}</Text>
     </View>
   );
 }

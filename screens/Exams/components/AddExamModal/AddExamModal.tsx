@@ -7,23 +7,19 @@ import { View, Text } from "react-native";
 import { useAddExamModal } from "./useAddExamModal";
 import { Controller, Form } from "react-hook-form";
 import CurrencyInput from "react-native-currency-input";
+import { PapperIcon } from "@/assets/images/icons/PapperIcon";
+import { AddExamModalProps } from "./AddExamModal.types";
 
-export default function AddExamModal() {
-  const { control, errors, handleSubmit, reset, onExamSubmit } =
+export default function AddExamModal({
+  modalOpen,
+  toggleModal,
+}: AddExamModalProps) {
+  const { control, errors, handleSubmit, onExamSubmit, handleChange } =
     useAddExamModal();
-  const [date, setDate] = useState("");
-  const handleChange = (text: string) => {
-    let cleaned = text.replace(/\D/g, "");
-    if (cleaned.length > 8) cleaned = cleaned.slice(0, 8);
-    if (cleaned.length > 4)
-      return `${cleaned.slice(0, 2)}/${cleaned.slice(2, 4)}/${cleaned.slice(4)}`;
-    if (cleaned.length > 2) return `${cleaned.slice(0, 2)}/${cleaned.slice(2)}`;
-    return cleaned;
-  };
 
   return (
-    <AddModalTemplate>
-      <View className="bg-primary_background px-5 py-4 rounded-t-[20px]">
+    <AddModalTemplate modalOpen={modalOpen} toggleModal={toggleModal}>
+      <View className="bg-primary_background px-5 py-4 rounded-t-[20px] gap-[6px]">
         <View
           className="flex-row justify-between items-center gap-[24px]
         "
@@ -87,7 +83,7 @@ export default function AddExamModal() {
             control={control}
             name="marevan"
             render={({ field }) => (
-              <View className="flex-1 max-w-[30%]">
+              <View className="flex-1 max-w-[33%]">
                 <Text className="text-main_black font-medium text-lg">
                   Marevan
                 </Text>
@@ -105,16 +101,21 @@ export default function AddExamModal() {
             control={control}
             name="rni"
             render={({ field }) => (
-              <View className="flex-1 max-w-[22%]">
+              <View className="flex-1 max-w-[18%]">
                 <Text className="text-main_black font-medium text-lg">RNI</Text>
-                <CurrencyInput
-                  value={field.value ?? null}
-                  onChangeValue={field.onChange}
-                  prefix="" // sem símbolo
-                  delimiter="." // separador de milhar (não usado aqui)
-                  separator="." // separador decimal
-                  keyboardType="decimal-pad"
-                />
+                <View>
+                  <CurrencyInput
+                    className="bg-main_white rounded-[10px] placeholder:text-[#1B1B1B]/42 font-boldaaa text-main_black flex-row items-center justify-between px-[10px]"
+                    value={typeof field.value === "number" ? field.value : null}
+                    onChangeValue={val => field.onChange(val ?? undefined)}
+                    prefix=""
+                    keyboardType="decimal-pad"
+                    placeholder="RNI"
+                  />
+                  <Text className="text-[#DC3545] text-sm">
+                    {errors.rni?.message}
+                  </Text>
+                </View>
               </View>
             )}
           />
@@ -126,6 +127,9 @@ export default function AddExamModal() {
               onPress={handleSubmit(onExamSubmit)}
             />
           </View>
+        </View>
+        <View className="p-[10.5] justify-center w-full items-center opacity-60">
+          <PapperIcon width={42} height={42} color="#B22222" />
         </View>
       </View>
     </AddModalTemplate>

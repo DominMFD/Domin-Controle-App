@@ -9,12 +9,18 @@ import {
 import Modal from "react-native-modal";
 import { AddModalTemplateProps } from "./AddModalTemplate.types";
 
-export default function AddModalTemplate({ children }: AddModalTemplateProps) {
+export default function AddModalTemplate({
+  children,
+  toggleModal,
+  modalOpen,
+}: AddModalTemplateProps) {
   return (
     <Modal
-      isVisible
+      isVisible={modalOpen}
       style={{ margin: 0, justifyContent: "flex-end" }}
       backdropTransitionOutTiming={0}
+      onSwipeComplete={toggleModal}
+      onBackdropPress={toggleModal}
       swipeDirection="down"
       animationIn="slideInUp"
       animationOut="slideOutDown"
@@ -28,7 +34,10 @@ export default function AddModalTemplate({ children }: AddModalTemplateProps) {
             <Text className="text-[20px] font-bold text-main_black text-center">
               Adicionar Exame
             </Text>
-            <Pressable className="absolute right-[20px] top-[20px]">
+            <Pressable
+              className="absolute right-[20px] top-[20px]"
+              onPress={toggleModal}
+            >
               <XIcon
                 width={15}
                 height={15}

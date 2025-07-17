@@ -1,3 +1,3 @@
-export type AddButtonProps = {
-  children: React.ReactNode;
-};
+import { TouchableOpacityProps } from "react-native";
+
+export type AddButtonProps = TouchableOpacityProps & {};

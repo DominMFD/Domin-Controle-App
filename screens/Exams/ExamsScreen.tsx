@@ -8,18 +8,20 @@ import AddModalTemplate from "@/components/AddModalTemplate/AddModalTemplate";
 import AddExamModal from "./components/AddExamModal/AddExamModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
+import { useAddExamModal } from "./components/AddExamModal/useAddExamModal";
+import { useExamsScreen } from "./useExamsScreen";
 export default function ExamsScreen() {
   const examsFields: Fields[] = ["DATA", "RNI", "HEMA", "MARE"];
+  const { modalOpen, toggleModal } = useExamsScreen();
 
-  const insets = useSafeAreaInsets();
   return (
     <>
       <Header title="Exames">
         <FieldOrdering fields={examsFields} />
       </Header>
       <ExamsList />
-      <AddButton />
-      <AddExamModal />
+      <AddButton onPress={toggleModal} />
+      <AddExamModal modalOpen={modalOpen} toggleModal={toggleModal} />
     </>
   );
 }

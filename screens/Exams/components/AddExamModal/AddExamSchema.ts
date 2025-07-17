@@ -1,14 +1,22 @@
-import { z } from "zod";
+import z from "zod/v3";
 
 export const ExamSchema = z
   .object({
-    dataString: z.string().refine(val => /^\d{2}\/\d{2}\/\d{4}$/.test(val), {
-      message: "Formato inválido. Use DD/MM/AAAA",
-    }),
+    dataString: z
+      .string({ required_error: "Data é obrigatório" })
+      .refine(val => /^\d{2}\/\d{2}\/\d{4}$/.test(val), {
+        message: "Formato inválido. Use DD/MM/AAAA",
+      }),
     data: z.date().optional(),
-    hematocrito: z.number().optional(),
-    rni: z.number().optional(),
-    marevan: z.string(),
+    hematocrito: z.preprocess(
+      val => (val === "" || val == null ? undefined : Number(val)),
+      z.number().optional(),
+    ),
+    rni: z.preprocess(
+      val => (val === "" || val == null ? undefined : Number(val)),
+      z.number().optional(),
+    ),
+    marevan: z.string({ required_error: "Marevan é obrigatório" }),
   })
   .superRefine((data, ctx) => {
     const [d, m, y] = data.dataString.split("/").map(Number);
@@ -22,7 +30,7 @@ export const ExamSchema = z
       d > 31
     ) {
       ctx.addIssue({
-        path: ["dataString"], // erro associado ao campo dataString
+        path: ["dataString"],
         code: z.ZodIssueCode.custom,
         message: "Data inválida",
       });
@@ -30,8 +38,7 @@ export const ExamSchema = z
   })
   .transform(data => {
     const [d, m, y] = data.dataString.split("/").map(Number);
-    const date = new Date(y, m - 1, d);
-    return { ...data, data: date };
+    return { ...data, data: new Date(y, m - 1, d) };
   });
 
 export type RawInput = z.input<typeof ExamSchema>;
