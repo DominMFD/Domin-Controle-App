@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { ExamSchema, ExamSchemaType, RawInput } from "./AddExamSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddExamMutation } from "./useAddExamMutation";
+import { useRef, useEffect } from "react";
+import { Animated, Easing } from "react-native";
 
 export function useAddExamModal() {
   const { addExamMutation } = useAddExamMutation();
@@ -32,6 +34,37 @@ export function useAddExamModal() {
     });
   };
 
+  const opacity = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    let loop: Animated.CompositeAnimation | null = null;
+
+    if (addExamMutation.isPending) {
+      loop = Animated.loop(
+        Animated.sequence([
+          Animated.timing(opacity, {
+            toValue: 0,
+            duration: 500,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          }),
+          Animated.timing(opacity, {
+            toValue: 1,
+            duration: 500,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          }),
+        ]),
+      );
+      loop.start();
+    } else {
+      opacity.setValue(1);
+      loop?.stop();
+    }
+
+    return () => loop?.stop();
+  }, [addExamMutation.isPending, opacity]);
+
   return {
     control,
     handleSubmit,
@@ -40,5 +73,6 @@ export function useAddExamModal() {
     onExamSubmit,
     handleChange,
     addExamMutation,
+    opacity,
   };
 }

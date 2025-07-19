@@ -2,8 +2,8 @@ import { CalendarIcon } from "@/assets/images/icons/CalendarIcon";
 import AddModalTemplate from "@/components/AddModalTemplate/AddModalTemplate";
 import MainButton from "@/components/MainButton/MainButton";
 import MainInput from "@/components/MainInput/MainInput";
-import React, { useState } from "react";
-import { View, Text } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { View, Text, Animated, Easing } from "react-native";
 import { useAddExamModal } from "./useAddExamModal";
 import { Controller, Form } from "react-hook-form";
 import CurrencyInput from "react-native-currency-input";
@@ -19,6 +19,7 @@ export default function AddExamModal() {
     onExamSubmit,
     handleChange,
     addExamMutation,
+    opacity,
   } = useAddExamModal();
 
   return (
@@ -134,7 +135,11 @@ export default function AddExamModal() {
         </View>
         <View className="p-[10.5] justify-center w-full items-center opacity-60">
           <View className="w-[42px] h-[42px]">
-            <PapperIcon width={42} height={42} color="#B22222" />
+            {addExamMutation.isPending && (
+              <Animated.View style={{ opacity }}>
+                <PapperIcon width={42} height={42} color="#B22222" />
+              </Animated.View>
+            )}
           </View>
         </View>
       </View>

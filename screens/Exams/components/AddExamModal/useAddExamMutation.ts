@@ -3,6 +3,7 @@ import { Exam } from "@/services/models/Exam";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useExamModalStore } from "../../useExamModalStore";
+import Toast from "react-native-toast-message";
 
 export function useAddExamMutation() {
   const { toggleModal } = useExamModalStore();
@@ -13,7 +14,14 @@ export function useAddExamMutation() {
     onError: (error: AxiosError) => {
       console.log("Deu erro:", error.response?.data ?? error.message);
     },
-    onSuccess: toggleModal,
+    onSuccess: () => {
+      toggleModal();
+      Toast.show({
+        type: "success",
+        text1: "Exame adicionado!",
+        text2: "Exame adicionado com sucesso",
+      });
+    },
   });
 
   return {

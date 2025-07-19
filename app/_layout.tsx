@@ -9,11 +9,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import "../global.css";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Toast from "react-native-toast-message";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -41,6 +38,7 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" />
         </Stack>
       </QueryClientProvider>
+      <Toast />
     </ThemeProvider>
   );
 }
