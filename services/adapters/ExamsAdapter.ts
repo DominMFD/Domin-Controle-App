@@ -1,5 +1,5 @@
 import api from "../api";
-import { AddExam } from "../models/Exam";
+import { AddExam, Exam } from "../models/Exam";
 
 export const ExamsAdapter = {
   async addExam(exam: AddExam) {
@@ -17,6 +17,15 @@ export const ExamsAdapter = {
       return response;
     } catch {
       throw new Error("erro ao listar os exames");
+    }
+  },
+
+  async deleteExam(id: Exam["id"]) {
+    try {
+      const response = api.delete(`exams/${id}`);
+      return response;
+    } catch {
+      throw new Error("erro ao deletar os exames");
     }
   },
 };

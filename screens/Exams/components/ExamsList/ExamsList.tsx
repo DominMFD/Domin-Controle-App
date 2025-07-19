@@ -2,6 +2,7 @@ import ContentTemplate from "@/components/ContentTemplate/ContentTemplate";
 import { View, Text } from "react-native";
 import ExamsItem from "../ExamsItem/ExamsItem";
 import { ExamsListProps } from "./ExamsList.types";
+import { DeleteModal } from "@/components/DeleteModal/DeleteModal";
 
 export default function ExamsList({ exams }: ExamsListProps) {
   if (!exams || exams.length === 0) {

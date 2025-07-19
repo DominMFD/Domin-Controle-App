@@ -1,5 +1,5 @@
 import { ExamsAdapter } from "./adapters/ExamsAdapter";
-import { AddExam } from "./models/Exam";
+import { AddExam, Exam } from "./models/Exam";
 
 export const ExamsService = {
   async addExam(exam: AddExam) {
@@ -8,5 +8,9 @@ export const ExamsService = {
 
   async listExams() {
     return ExamsAdapter.listExams();
+  },
+
+  async removeExam(id: Exam["id"]) {
+    return ExamsAdapter.deleteExam(id);
   },
 };

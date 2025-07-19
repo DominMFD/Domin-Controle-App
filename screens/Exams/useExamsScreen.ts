@@ -1,8 +1,14 @@
 import { useRef, useEffect } from "react";
 import { Animated, Easing } from "react-native";
+import { useExamMutation } from "./useExamMutation";
 
 export function useExamsScreen() {
+  const { deleteExamMutation } = useExamMutation();
   const opacity = useRef(new Animated.Value(1)).current;
+
+  const handleRemoveExam = async () => {
+    await deleteExamMutation.mutateAsync();
+  };
 
   useEffect(() => {
     const loop = Animated.loop(
@@ -28,5 +34,6 @@ export function useExamsScreen() {
 
   return {
     opacity,
+    handleRemoveExam,
   };
 }

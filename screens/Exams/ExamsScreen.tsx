@@ -11,12 +11,14 @@ import { useExamQuery } from "./useExamQuery";
 import ExamsList from "./components/ExamsList/ExamsList";
 import { useExamsScreen } from "./useExamsScreen";
 import { PapperIcon } from "@/assets/images/icons/PapperIcon";
-import { opacity } from "react-native-reanimated/lib/typescript/Colors";
+import { DeleteModal } from "@/components/DeleteModal/DeleteModal";
+import { useExamMutation } from "./useExamMutation";
 export default function ExamsScreen() {
   const examsFields: Fields[] = ["DATA", "RNI", "HEMA", "MARE"];
-  const { toggleModal } = useExamModalStore();
+  const { toggleModal, modalOpen, toggleDeleteModal, deleteModal } =
+    useExamModalStore();
   const { listExamQuery } = useExamQuery();
-  const { opacity } = useExamsScreen();
+  const { opacity, handleRemoveExam } = useExamsScreen();
 
   return (
     <>
@@ -34,6 +36,13 @@ export default function ExamsScreen() {
       )}
       <AddButton onPress={toggleModal} />
       <AddExamModal />
+      <DeleteModal
+        deleteFn={handleRemoveExam}
+        toggleModal={toggleDeleteModal}
+        modalOpen={deleteModal}
+        label="Excluir Exame"
+        title="Deseja realmente excluir o exame?"
+      />
     </>
   );
 }
