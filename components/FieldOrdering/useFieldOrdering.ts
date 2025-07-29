@@ -1,8 +1,9 @@
 import { useExamsScreenStore } from "@/screens/Exams/useExamsScreenStore";
 import { ExamsSortBy } from "@/types/ExamsSortBy.types";
+import { queryClient } from "@/utils/queryClient";
 
 type HandleToggleOrdenationProps = {
-  newSortBy: ExamsSortBy;
+  newSortBy: string;
 };
 
 export default function useFieldOrdering() {
@@ -17,6 +18,10 @@ export default function useFieldOrdering() {
       setSortBy(newSortBy);
       setOrder("asc");
     }
+
+    queryClient.invalidateQueries({
+      queryKey: ["list-exams"],
+    });
   };
 
   return {

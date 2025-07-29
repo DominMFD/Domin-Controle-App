@@ -1,5 +1,4 @@
 import { Exam } from "@/services/models/Exam";
-import { ExamsSortBy } from "@/types/ExamsSortBy.types";
 import { IOrder } from "@/types/Order.types";
 import { create } from "zustand";
 
@@ -8,8 +7,8 @@ type useExamsScreenStoreType = {
   choseIdForDelete: (id: Exam["id"] | null) => void;
   order: IOrder;
   setOrder: (order: IOrder) => void;
-  sortBy: ExamsSortBy;
-  setSortBy: (sortBy: ExamsSortBy) => void;
+  sortBy: string;
+  setSortBy: (sortBy: string) => void;
 };
 
 export const useExamsScreenStore = create<useExamsScreenStoreType>(set => ({

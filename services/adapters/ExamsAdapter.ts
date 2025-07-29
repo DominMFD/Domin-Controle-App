@@ -1,4 +1,3 @@
-import { ExamsSortBy } from "@/types/ExamsSortBy.types";
 import api from "../api";
 import { AddExam, Exam } from "../models/Exam";
 import { IOrder } from "@/types/Order.types";
@@ -13,7 +12,7 @@ export const ExamsAdapter = {
     }
   },
 
-  async listExams(sortBy: ExamsSortBy, order: IOrder) {
+  async listExams(sortBy: string, order: IOrder) {
     try {
       const response = api.get("exams", {
         params: { sortBy, order },
