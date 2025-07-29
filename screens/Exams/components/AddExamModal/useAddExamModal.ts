@@ -32,6 +32,8 @@ export function useAddExamModal() {
       marevan: data.marevan,
       rni: data.rni,
     });
+
+    reset();
   };
 
   const opacity = useRef(new Animated.Value(1)).current;
