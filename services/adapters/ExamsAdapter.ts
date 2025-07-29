@@ -1,5 +1,7 @@
+import { ExamsSortBy } from "@/types/ExamsSortBy.types";
 import api from "../api";
 import { AddExam, Exam } from "../models/Exam";
+import { IOrder } from "@/types/Order.types";
 
 export const ExamsAdapter = {
   async addExam(exam: AddExam) {
@@ -11,9 +13,11 @@ export const ExamsAdapter = {
     }
   },
 
-  async listExams() {
+  async listExams(sortBy: ExamsSortBy, order: IOrder) {
     try {
-      const response = api.get("exams");
+      const response = api.get("exams", {
+        params: { sortBy, order },
+      });
       return response;
     } catch {
       throw new Error("erro ao listar os exames");
