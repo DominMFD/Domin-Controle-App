@@ -13,6 +13,7 @@ export default function AddModalTemplate({
   children,
   toggleModal,
   modalOpen,
+  title = "Adicionar Exame",
 }: AddModalTemplateProps) {
   return (
     <Modal
@@ -32,7 +33,7 @@ export default function AddModalTemplate({
         <View className="bg-second_background rounded-t-[20px] w-full">
           <View className="p-[20px] relative">
             <Text className="text-[20px] font-bold text-main_black text-center">
-              Adicionar Exame
+              {title}
             </Text>
             <Pressable
               className="absolute right-[20px] top-[20px]"

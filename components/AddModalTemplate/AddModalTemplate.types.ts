@@ -1,6 +1,7 @@
 export type ModalProps = {
   toggleModal: () => void;
   modalOpen: boolean;
+  title?: string;
 };
 
 export type AddModalTemplateProps = ModalProps & {

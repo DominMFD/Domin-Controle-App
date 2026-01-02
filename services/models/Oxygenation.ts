@@ -3,3 +3,5 @@ export interface Oxygenation {
   date: Date;
   value?: number;
 }
+
+export type AddOxygenation = Omit<Oxygenation, "id">;

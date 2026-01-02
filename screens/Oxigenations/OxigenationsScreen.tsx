@@ -4,14 +4,18 @@ import { useOxigenationsScreenStore } from "./useOxigenationScreenStore";
 import FieldOrdering from "@/components/FieldOrdering/FieldOrdering";
 import useOxygenationFieldOrdering from "./useOxygenationFieldOrdering";
 import { useOxygenationQuery } from "./useOxygenationQuery";
-import { PapperIcon } from "@/assets/images/icons/PapperIcon";
 import { View, Animated } from "react-native";
-import { opacity } from "react-native-reanimated/lib/typescript/Colors";
 import { useOxygenationsScreen } from "./useOxygenationScreen";
 import OxygenationsList from "./components/OxigenationsList/OxygenationsList";
+import { OxygenationIcon } from "@/assets/images/icons/OxygenationIcon";
+import AddButton from "@/components/AddButton/AddButton";
+import { useOxigenationModalStore } from "./useOxygenationModalStore";
+import AddOxygenationModal from "./components/AddOxygenationModal/AddOxygenationModal";
 
 export default function OxigenationsScreen() {
   const oxigenationsFields: Fields[] = ["DATE", "TIME", "VALUE"];
+  const { toggleModal, deleteModal, toggleDeleteModal } =
+    useOxigenationModalStore();
   const { opacity } = useOxygenationsScreen();
   const { order, sortBy } = useOxigenationsScreenStore();
   const { handleToggleOrdenation } = useOxygenationFieldOrdering();
@@ -30,12 +34,14 @@ export default function OxigenationsScreen() {
       {listOxygenationQuery.isLoading ? (
         <View className="items-center justify-center flex-1">
           <Animated.View style={{ opacity }}>
-            <PapperIcon width={210} height={210} color="#B22222" />
+            <OxygenationIcon width={210} height={210} color="#B22222" />
           </Animated.View>
         </View>
       ) : (
         <OxygenationsList oxygenations={listOxygenationQuery.data?.data} />
       )}
+      <AddButton onPress={toggleModal} />
+      <AddOxygenationModal />
     </>
   );
 }

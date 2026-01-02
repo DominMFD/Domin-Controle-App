@@ -3,7 +3,6 @@ import React from "react";
 import FieldOrdering from "../../components/FieldOrdering/FieldOrdering";
 import { Fields } from "../../components/FieldOrdering/FieldOrdering.types";
 import AddButton from "@/components/AddButton/AddButton";
-import AddModalTemplate from "@/components/AddModalTemplate/AddModalTemplate";
 import AddExamModal from "./components/AddExamModal/AddExamModal";
 import { Animated, View } from "react-native";
 import { useExamModalStore } from "./useExamModalStore";
@@ -12,14 +11,12 @@ import ExamsList from "./components/ExamsList/ExamsList";
 import { useExamsScreen } from "./useExamsScreen";
 import { PapperIcon } from "@/assets/images/icons/PapperIcon";
 import { DeleteModal } from "@/components/DeleteModal/DeleteModal";
-import { useExamMutation } from "./useExamMutation";
 import { useExamsScreenStore } from "./useExamsScreenStore";
 import useExamFieldOrdering from "./useExamFieldOrdering";
 export default function ExamsScreen() {
   const examsFields: Fields[] = ["DATE", "RNI", "HEMA", "MARE"];
   const { handleToggleOrdenation } = useExamFieldOrdering();
-  const { toggleModal, modalOpen, toggleDeleteModal, deleteModal } =
-    useExamModalStore();
+  const { toggleModal, toggleDeleteModal, deleteModal } = useExamModalStore();
   const { listExamQuery } = useExamQuery();
   const { opacity, handleRemoveExam } = useExamsScreen();
   const { order, sortBy } = useExamsScreenStore();
