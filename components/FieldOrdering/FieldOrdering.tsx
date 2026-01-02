@@ -2,7 +2,7 @@ import { DoubleArrowIcon } from "@/assets/images/icons/DoubleArrowIcon";
 import { Pressable, View, Text } from "react-native";
 import { FieldOrderingProps } from "./FieldOrdering.types";
 import useFieldOrdering from "./useFieldOrdering";
-import { useExamsScreenStore } from "@/screens/Exams/useExamsScreenStore";
+import { DisplayName } from "./utils/displayName";
 
 export default function FieldOrdering({
   fields,
@@ -36,7 +36,7 @@ export default function FieldOrdering({
             }
           >
             <Text className="text-lg text-main_black font-bold capitalize">
-              {valueLowerCase === "date" ? "Data" : valueLowerCase}
+              {DisplayName(valueLowerCase)}
             </Text>
             <DoubleArrowIcon
               color1={setColor1(valueLowerCase)}

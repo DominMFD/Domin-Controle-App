@@ -14,8 +14,10 @@ import { PapperIcon } from "@/assets/images/icons/PapperIcon";
 import { DeleteModal } from "@/components/DeleteModal/DeleteModal";
 import { useExamMutation } from "./useExamMutation";
 import { useExamsScreenStore } from "./useExamsScreenStore";
+import useExamFieldOrdering from "./useExamFieldOrdering";
 export default function ExamsScreen() {
   const examsFields: Fields[] = ["DATE", "RNI", "HEMA", "MARE"];
+  const { handleToggleOrdenation } = useExamFieldOrdering();
   const { toggleModal, modalOpen, toggleDeleteModal, deleteModal } =
     useExamModalStore();
   const { listExamQuery } = useExamQuery();
@@ -25,7 +27,12 @@ export default function ExamsScreen() {
   return (
     <>
       <Header title="Exames">
-        <FieldOrdering fields={examsFields} order={order} sortBy={sortBy} />
+        <FieldOrdering
+          fields={examsFields}
+          order={order}
+          sortBy={sortBy}
+          onToggleOrdenation={handleToggleOrdenation}
+        />
       </Header>
       {listExamQuery.isLoading ? (
         <View className="items-center justify-center flex-1">

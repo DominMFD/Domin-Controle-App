@@ -1,9 +1,9 @@
+import { ToggleOrdenation } from "@/components/FieldOrdering/FieldOrdering.types";
 import { useExamsScreenStore } from "@/screens/Exams/useExamsScreenStore";
 import { ExamsSortBy } from "@/types/ExamsSortBy.types";
 import { queryClient } from "@/utils/queryClient";
-import { ToggleOrdenation } from "./FieldOrdering.types";
 
-export default function useFieldOrdering() {
+export default function useExamFieldOrdering() {
   const { order, sortBy, setOrder, setSortBy } = useExamsScreenStore();
 
   const handleToggleOrdenation = ({ newSortBy }: ToggleOrdenation) => {

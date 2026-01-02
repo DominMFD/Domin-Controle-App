@@ -1,10 +1,9 @@
-import { useExamsScreenStore } from "@/screens/Exams/useExamsScreenStore";
-import { ExamsSortBy } from "@/types/ExamsSortBy.types";
+import { ToggleOrdenation } from "@/components/FieldOrdering/FieldOrdering.types";
 import { queryClient } from "@/utils/queryClient";
-import { ToggleOrdenation } from "./FieldOrdering.types";
+import { useOxigenationsScreenStore } from "./useOxigenationScreenStore";
 
-export default function useFieldOrdering() {
-  const { order, sortBy, setOrder, setSortBy } = useExamsScreenStore();
+export default function useOxygenationFieldOrdering() {
+  const { order, sortBy, setOrder, setSortBy } = useOxigenationsScreenStore();
 
   const handleToggleOrdenation = ({ newSortBy }: ToggleOrdenation) => {
     if (sortBy === newSortBy) {
@@ -15,7 +14,7 @@ export default function useFieldOrdering() {
     }
 
     queryClient.invalidateQueries({
-      queryKey: ["list-exams"],
+      queryKey: ["list-oxygenations"],
     });
   };
 
