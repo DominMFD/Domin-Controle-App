@@ -20,6 +20,7 @@ export default function AddOxygenationModal() {
     handleSubmit,
     onOxygenationSubmit,
     handleChange,
+    formatTime,
     addOxygenationMutation,
     opacity,
   } = useAddOxygenationModal();
@@ -93,17 +94,23 @@ export default function AddOxygenationModal() {
           <Controller
             control={control}
             name="time"
-            render={({ field }) => (
+            render={({ field: { onChange, value, ...restField } }) => (
               <View className="flex-1 max-w-[66%]">
                 <Text className="text-main_black font-medium text-lg">
                   Hora
                 </Text>
                 <View>
                   <MainInput
-                    placeholder="Hora"
+                    placeholder="HH:mm"
+                    keyboardType="numeric"
+                    maxLength={5}
                     errorMessage={errors.time?.message?.toString()}
-                    {...field}
-                    onChangeText={field.onChange}
+                    value={value}
+                    {...restField}
+                    onChangeText={text => {
+                      const formatted = formatTime(text);
+                      onChange(formatted);
+                    }}
                   >
                     <ClockIcon width={22} height={22} />
                   </MainInput>

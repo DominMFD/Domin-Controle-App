@@ -22,7 +22,7 @@ export function useOxygenationMutation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["list-exams"],
+        queryKey: ["list-oxigenations"],
       });
       toggleModal();
       Toast.show({
@@ -36,7 +36,7 @@ export function useOxygenationMutation() {
   const deleteOxygenationMutation = useMutation({
     mutationFn: async () => {
       if (idForDelete) {
-        await ExamsService.removeExam(idForDelete);
+        await OxygenationsService.deleteOxygenation(idForDelete);
       }
     },
     onError: (error: AxiosError) => {
@@ -44,7 +44,7 @@ export function useOxygenationMutation() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["list-oxygenations"],
+        queryKey: ["list-oxigenations"],
       });
       toggleDeleteModal();
       Toast.show({

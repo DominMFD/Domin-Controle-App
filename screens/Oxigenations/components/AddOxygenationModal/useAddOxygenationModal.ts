@@ -29,6 +29,16 @@ export function useAddOxygenationModal() {
     return cleaned;
   };
 
+  const formatTime = (value: string) => {
+    const clean = value.replace(/\D/g, "");
+    const truncated = clean.slice(0, 4);
+    if (truncated.length >= 3) {
+      return `${truncated.slice(0, 2)}:${truncated.slice(2)}`;
+    }
+
+    return truncated;
+  };
+
   const onOxygenationSubmit = async (data: OxygenationSchemaType) => {
     await addOxygenationMutation.mutateAsync({
       date: data.data,
@@ -76,6 +86,7 @@ export function useAddOxygenationModal() {
     errors,
     onOxygenationSubmit,
     handleChange,
+    formatTime,
     addOxygenationMutation,
     opacity,
   };

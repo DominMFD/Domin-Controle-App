@@ -11,12 +11,13 @@ import { OxygenationIcon } from "@/assets/images/icons/OxygenationIcon";
 import AddButton from "@/components/AddButton/AddButton";
 import { useOxigenationModalStore } from "./useOxygenationModalStore";
 import AddOxygenationModal from "./components/AddOxygenationModal/AddOxygenationModal";
+import { DeleteModal } from "@/components/DeleteModal/DeleteModal";
 
 export default function OxigenationsScreen() {
   const oxigenationsFields: Fields[] = ["DATE", "TIME", "VALUE"];
   const { toggleModal, deleteModal, toggleDeleteModal } =
     useOxigenationModalStore();
-  const { opacity } = useOxygenationsScreen();
+  const { opacity, handleRemoveOxygenation } = useOxygenationsScreen();
   const { order, sortBy } = useOxigenationsScreenStore();
   const { handleToggleOrdenation } = useOxygenationFieldOrdering();
   const { listOxygenationQuery } = useOxygenationQuery();
@@ -42,6 +43,13 @@ export default function OxigenationsScreen() {
       )}
       <AddButton onPress={toggleModal} />
       <AddOxygenationModal />
+      <DeleteModal
+        deleteFn={handleRemoveOxygenation}
+        toggleModal={toggleDeleteModal}
+        modalOpen={deleteModal}
+        label="Excluir Oxigenação"
+        title="Deseja realmente excluir a oxigenação?"
+      />
     </>
   );
 }

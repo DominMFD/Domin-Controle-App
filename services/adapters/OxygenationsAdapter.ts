@@ -1,6 +1,6 @@
 import { IOrder } from "@/types/Order.types";
 import api from "../api";
-import { AddOxygenation } from "../models/Oxygenation";
+import { AddOxygenation, Oxygenation } from "../models/Oxygenation";
 
 export const OxygenationsAdapter = {
   async addOxygenation(oxygenation: AddOxygenation) {
@@ -17,9 +17,19 @@ export const OxygenationsAdapter = {
       const response = api.get("oxygenation", {
         params: { sortBy, order },
       });
+
       return response;
     } catch {
       throw new Error("erro ao listar as oxygenações");
+    }
+  },
+
+  async deleteOxygenation(id: Oxygenation["id"]) {
+    try {
+      const response = api.delete(`oxygenation/${id}`);
+      return response;
+    } catch {
+      throw new Error("erro ao deletar oxigenação");
     }
   },
 };

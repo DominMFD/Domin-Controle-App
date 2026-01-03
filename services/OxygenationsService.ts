@@ -1,6 +1,6 @@
 import { IOrder } from "@/types/Order.types";
 import { OxygenationsAdapter } from "./adapters/OxygenationsAdapter";
-import { AddOxygenation } from "./models/Oxygenation";
+import { AddOxygenation, Oxygenation } from "./models/Oxygenation";
 
 export const OxygenationsService = {
   async addOxygenation(oxygenation: AddOxygenation) {
@@ -9,5 +9,9 @@ export const OxygenationsService = {
 
   async listOxygenations(sortBy: string, order: IOrder) {
     return OxygenationsAdapter.listOxygenations(sortBy, order);
+  },
+
+  async deleteOxygenation(id: Oxygenation["id"]) {
+    return await OxygenationsAdapter.deleteOxygenation(id);
   },
 };
