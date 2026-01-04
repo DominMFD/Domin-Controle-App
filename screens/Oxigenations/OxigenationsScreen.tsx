@@ -14,7 +14,7 @@ import AddOxygenationModal from "./components/AddOxygenationModal/AddOxygenation
 import { DeleteModal } from "@/components/DeleteModal/DeleteModal";
 
 export default function OxigenationsScreen() {
-  const oxigenationsFields: Fields[] = ["DATE", "TIME", "VALUE"];
+  const oxigenationsFields: Fields[] = ["DATE", "TIME", "OXY"];
   const { toggleModal, deleteModal, toggleDeleteModal } =
     useOxigenationModalStore();
   const { opacity, handleRemoveOxygenation } = useOxygenationsScreen();

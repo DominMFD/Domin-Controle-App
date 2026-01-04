@@ -1,16 +1,14 @@
 import { DoubleArrowIcon } from "@/assets/images/icons/DoubleArrowIcon";
 import { Pressable, View, Text } from "react-native";
 import { FieldOrderingProps } from "./FieldOrdering.types";
-import useFieldOrdering from "./useFieldOrdering";
 import { DisplayName } from "./utils/displayName";
 
 export default function FieldOrdering({
   fields,
   order,
   sortBy,
+  onToggleOrdenation,
 }: FieldOrderingProps) {
-  const { handleToggleOrdenation } = useFieldOrdering();
-
   const setColor1 = (sortByValue: string) => {
     if (sortBy !== sortByValue || order === "asc") return "#1B1B1B";
 
@@ -31,9 +29,9 @@ export default function FieldOrdering({
           <Pressable
             key={value}
             className="flex-row px-4 py-[11.5px] items-center gap-[8px] flex-1 justify-center border-r border-border_color"
-            onPress={() =>
-              handleToggleOrdenation({ newSortBy: valueLowerCase })
-            }
+            onPress={() => {
+              onToggleOrdenation({ newSortBy: valueLowerCase });
+            }}
           >
             <Text className="text-lg text-main_black font-bold capitalize">
               {DisplayName(valueLowerCase)}

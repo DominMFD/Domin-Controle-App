@@ -14,7 +14,7 @@ export default function useOxygenationFieldOrdering() {
     }
 
     queryClient.invalidateQueries({
-      queryKey: ["list-oxygenations"],
+      queryKey: ["list-oxigenations"],
     });
   };
 

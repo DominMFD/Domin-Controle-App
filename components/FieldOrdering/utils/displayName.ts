@@ -4,7 +4,7 @@ export function DisplayName(name: string) {
       return "Data";
     case "time":
       return "Hora";
-    case "value":
+    case "oxy":
       return "Oxi";
     default:
       return name;
