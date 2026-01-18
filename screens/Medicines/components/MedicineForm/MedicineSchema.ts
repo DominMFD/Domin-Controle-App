@@ -9,7 +9,14 @@ export const MedicineSchema = z.object({
     message: "Dosagem é obrigatória",
   }),
 
-  image: z.file({ message: "Imagem é obrigatória" }),
+  image: z.object(
+    {
+      uri: z.string(),
+      name: z.string(),
+      type: z.string(),
+    },
+    { message: "Imagem é obrigatória" },
+  ),
 
   description: z.string({
     message: "Prescrição é obrigatório",

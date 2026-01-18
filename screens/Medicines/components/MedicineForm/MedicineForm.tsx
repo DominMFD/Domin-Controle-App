@@ -6,9 +6,10 @@ import * as ImagePicker from "expo-image-picker";
 import UploadIcon from "@/assets/images/icons/UploadIcon";
 import { useState } from "react";
 import { Image } from "expo-image";
+import { FileAdapter } from "@/types/File.types";
 
 export default function MedicineForm() {
-  const { control, errors, watch } = useMedicineForm();
+  const { control, errors, setValue, watch } = useMedicineForm();
   const [imageUrl, setImage] = useState<string | null>(null);
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -18,7 +19,13 @@ export default function MedicineForm() {
     });
 
     if (!result.canceled) {
+      const file: FileAdapter = {
+        uri: result.assets[0].uri,
+        name: result.assets[0].fileName ?? "indefinido",
+        type: result.assets[0].mimeType ?? "asa",
+      };
       setImage(result.assets[0].uri);
+      setValue("image", file, { shouldDirty: true, shouldValidate: true });
     }
   };
 
@@ -38,6 +45,7 @@ export default function MedicineForm() {
                 errorMessage={errors.name?.message?.toString()}
                 placeholder="Nome"
                 {...field}
+                onChangeText={text => field.onChange(text)}
               />
             </View>
           )}
@@ -54,7 +62,10 @@ export default function MedicineForm() {
               <MainInput
                 errorMessage={errors.dosage?.message?.toString()}
                 placeholder="Dosagem"
+                keyboardType="numeric"
+                textContentType="flightNumber"
                 {...field}
+                onChangeText={text => field.onChange(text)}
               />
             </View>
           )}
@@ -97,6 +108,7 @@ export default function MedicineForm() {
                 className="bg-main_white rounded-[10px] h-[88px] px-[10px]"
                 numberOfLines={4}
                 {...field}
+                onChangeText={text => field.onChange(text)}
               />
               <Text className="text-[#DC3545] text-sm h-[14px]">
                 {errors.description?.message?.toString()}

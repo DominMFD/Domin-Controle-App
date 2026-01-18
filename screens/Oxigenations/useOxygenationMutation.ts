@@ -1,5 +1,3 @@
-import { ExamsService } from "@/services/ExamsService";
-import { AddExam, Exam } from "@/services/models/Exam";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Toast from "react-native-toast-message";

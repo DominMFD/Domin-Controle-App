@@ -12,6 +12,7 @@ export function useMedicineForm() {
   const {
     control,
     watch,
+    setValue,
     formState: { errors },
   } = methods;
 
@@ -19,5 +20,6 @@ export function useMedicineForm() {
     control,
     watch,
     errors,
+    setValue,
   };
 }
