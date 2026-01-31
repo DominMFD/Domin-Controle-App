@@ -21,8 +21,6 @@ export const MedicineAdapter = {
           "Content-Type": "multipart/form-data",
         },
       });
-
-      console.log(response);
     } catch {
       throw new Error("erro ao criar remédio");
     }
