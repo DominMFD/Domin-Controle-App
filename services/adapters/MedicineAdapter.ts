@@ -16,13 +16,21 @@ export const MedicineAdapter = {
         type: medicine.image.type ?? "image/jpeg",
       } as any);
 
-      const response = await api.post("/medicine", formData, {
+      await api.post("/medicine", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
     } catch {
       throw new Error("erro ao criar remédio");
+    }
+  },
+
+  async listAllMedicine() {
+    try {
+      return await api.get("/medicine");
+    } catch {
+      throw new Error("erro ao listar remédio");
     }
   },
 };

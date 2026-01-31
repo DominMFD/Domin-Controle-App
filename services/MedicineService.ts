@@ -5,4 +5,8 @@ export const MedicineService = {
   async addMedicine(medicine: AddMedicine) {
     return MedicineAdapter.addMedicine(medicine);
   },
+
+  async listAllMedicine() {
+    return MedicineAdapter.listAllMedicine();
+  },
 };
