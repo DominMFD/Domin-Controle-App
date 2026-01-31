@@ -65,7 +65,7 @@ export default function MedicineForm() {
                 keyboardType="numeric"
                 textContentType="flightNumber"
                 {...field}
-                onChangeText={text => field.onChange(text)}
+                onChangeText={text => field.onChange(Number(text))}
               />
             </View>
           )}
