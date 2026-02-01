@@ -3,18 +3,17 @@ import { Image } from "expo-image";
 import { MedicineItemProps } from "./MedicineItem.types";
 
 export default function MedicineItem({ medicine }: MedicineItemProps) {
-  console.log(medicine);
-
   return (
     <View
       className="bg-main_white flex flex-row gap-1 h-[104px]"
       style={{ elevation: 3 }}
     >
-      <View className="w-[104px] bg-[#D9D9D9]">
+      <View className="w-[104px] h-[104px] bg-[#D9D9D9]">
         <Image
-          className="w-[34px] h-full"
-          source={medicine.image}
+          style={{ width: "100%", height: "100%" }}
+          source={{ uri: medicine.image }}
           contentFit="cover"
+          cachePolicy="none"
         />
       </View>
       <View className="flex-1 p-[6px] text-main_black">
