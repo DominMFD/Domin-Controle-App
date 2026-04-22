@@ -1,5 +1,5 @@
 export interface Exam {
-  id: number;
+  id: string;
   date: Date;
   hematocrito?: number;
   rni?: number;

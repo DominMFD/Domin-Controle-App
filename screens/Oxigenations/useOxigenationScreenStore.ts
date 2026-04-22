@@ -4,7 +4,7 @@ import { IOrder } from "@/types/Order.types";
 import { create } from "zustand";
 
 type useOxigenationsScreenStoreType = {
-  idForDelete: number | null;
+  idForDelete: string | null;
   choseIdForDelete: (id: Oxygenation["id"] | null) => void;
   order: IOrder;
   setOrder: (order: IOrder) => void;

@@ -38,7 +38,7 @@ export default function ExamsScreen() {
           </Animated.View>
         </View>
       ) : (
-        <ExamsList exams={listExamQuery.data?.data} />
+        <ExamsList exams={listExamQuery.data ?? []} />
       )}
       <AddButton onPress={toggleModal} />
       <AddExamModal />

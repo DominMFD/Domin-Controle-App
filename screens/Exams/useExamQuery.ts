@@ -6,7 +6,7 @@ export function useExamQuery() {
   const { order, sortBy } = useExamsScreenStore();
 
   const listExamQuery = useQuery({
-    queryKey: ["list-exams"],
+    queryKey: ["list-exams", sortBy, order],
     queryFn: () => ExamsService.listExams(sortBy, order),
   });
 

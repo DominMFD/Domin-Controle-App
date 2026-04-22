@@ -29,7 +29,7 @@ export default function MedicinesScreen() {
           </Animated.View>
         </View>
       ) : (
-        <MedicinesList medicines={listMedicineQuery.data?.data} />
+        <MedicinesList medicines={listMedicineQuery.data ?? []} />
       )}
 
       <AddMedicineModal />

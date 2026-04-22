@@ -1,7 +1,6 @@
 import { ExamsService } from "@/services/ExamsService";
 import { AddExam, Exam } from "@/services/models/Exam";
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import Toast from "react-native-toast-message";
 import { queryClient } from "@/utils/queryClient";
 import { useExamModalStore } from "./useExamModalStore";
@@ -11,12 +10,12 @@ export function useExamMutation() {
   const { toggleModal, toggleDeleteModal } = useExamModalStore();
   const { idForDelete } = useExamsScreenStore();
 
-  const addExamMutation = useMutation<void, AxiosError, AddExam>({
+  const addExamMutation = useMutation<void, Error, AddExam>({
     mutationFn: async (exam: AddExam) => {
       await ExamsService.addExam(exam);
     },
-    onError: (error: AxiosError) => {
-      console.log("Deu erro:", error.response?.data ?? error.message);
+    onError: (error: Error) => {
+      console.log("Deu erro:", error.message);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -37,8 +36,8 @@ export function useExamMutation() {
         await ExamsService.removeExam(idForDelete);
       }
     },
-    onError: (error: AxiosError) => {
-      console.log("Deu erro:", error.response?.data ?? error.message);
+    onError: (error: Error) => {
+      console.log("Deu erro:", error.message);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

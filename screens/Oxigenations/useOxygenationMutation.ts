@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import Toast from "react-native-toast-message";
 import { queryClient } from "@/utils/queryClient";
 import { useOxigenationsScreenStore } from "./useOxigenationScreenStore";
@@ -11,12 +10,12 @@ export function useOxygenationMutation() {
   const { toggleModal, toggleDeleteModal } = useOxigenationModalStore();
   const { idForDelete } = useOxigenationsScreenStore();
 
-  const addOxygenationMutation = useMutation<void, AxiosError, AddOxygenation>({
-    mutationFn: async (exam: AddOxygenation) => {
-      await OxygenationsService.addOxygenation(exam);
+  const addOxygenationMutation = useMutation<void, Error, AddOxygenation>({
+    mutationFn: async (oxygenation: AddOxygenation) => {
+      await OxygenationsService.addOxygenation(oxygenation);
     },
-    onError: (error: AxiosError) => {
-      console.log("Deu erro:", error.response?.data ?? error.message);
+    onError: (error: Error) => {
+      console.log("Deu erro:", error.message);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -25,8 +24,8 @@ export function useOxygenationMutation() {
       toggleModal();
       Toast.show({
         type: "success",
-        text1: "Oxigenação adicionado!",
-        text2: "Oxigenação adicionado com sucesso",
+        text1: "Oxigenação adicionada!",
+        text2: "Oxigenação adicionada com sucesso",
       });
     },
   });
@@ -37,8 +36,8 @@ export function useOxygenationMutation() {
         await OxygenationsService.deleteOxygenation(idForDelete);
       }
     },
-    onError: (error: AxiosError) => {
-      console.log("Deu erro:", error.response?.data ?? error.message);
+    onError: (error: Error) => {
+      console.log("Deu erro:", error.message);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -47,8 +46,8 @@ export function useOxygenationMutation() {
       toggleDeleteModal();
       Toast.show({
         type: "success",
-        text1: "Oxigenação removido!",
-        text2: "Oxigenação removido com sucesso",
+        text1: "Oxigenação removida!",
+        text2: "Oxigenação removida com sucesso",
       });
     },
   });

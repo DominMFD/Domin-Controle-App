@@ -1,36 +1,40 @@
-import api from "../api";
-import { AddMedicine } from "../models/Medicine";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { db, storage } from "../firebase";
+import { AddMedicine, Medicine } from "../models/Medicine";
+
+const COLLECTION = "medicines";
 
 export const MedicineAdapter = {
   async addMedicine(medicine: AddMedicine) {
     try {
-      const formData = new FormData();
+      const imageRef = ref(
+        storage,
+        `medicines/${Date.now()}_${medicine.image.name ?? "image.jpg"}`,
+      );
 
-      formData.append("Name", medicine.name);
-      formData.append("Dosage", String(medicine.dosage));
-      formData.append("Description", medicine.description);
+      const fetchResponse = await fetch(medicine.image.uri);
+      const blob = await fetchResponse.blob();
+      await uploadBytes(imageRef, blob);
+      const imageUrl = await getDownloadURL(imageRef);
 
-      formData.append("Image", {
-        uri: medicine.image.uri,
-        name: medicine.image.name ?? "image.jpg",
-        type: medicine.image.type ?? "image/jpeg",
-      } as any);
-
-      await api.post("/medicine", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      await addDoc(collection(db, COLLECTION), {
+        name: medicine.name,
+        dosage: medicine.dosage,
+        description: medicine.description,
+        image: imageUrl,
       });
     } catch {
       throw new Error("erro ao criar remédio");
     }
   },
 
-  async listAllMedicine() {
+  async listAllMedicine(): Promise<Medicine[]> {
     try {
-      return await api.get("/medicine");
+      const snapshot = await getDocs(collection(db, COLLECTION));
+      return snapshot.docs.map(d => ({ id: d.id, ...d.data() }) as Medicine);
     } catch {
-      throw new Error("erro ao listar remédio");
+      throw new Error("erro ao listar remédios");
     }
   },
 };

@@ -1,5 +1,5 @@
 export interface Oxygenation {
-  id: number;
+  id: string;
   date: Date;
   value?: number;
 }

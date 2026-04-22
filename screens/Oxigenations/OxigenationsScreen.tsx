@@ -39,7 +39,7 @@ export default function OxigenationsScreen() {
           </Animated.View>
         </View>
       ) : (
-        <OxygenationsList oxygenations={listOxygenationQuery.data?.data} />
+        <OxygenationsList oxygenations={listOxygenationQuery.data ?? []} />
       )}
       <AddButton onPress={toggleModal} />
       <AddOxygenationModal />

@@ -6,7 +6,7 @@ export function useOxygenationQuery() {
   const { order, sortBy } = useOxigenationsScreenStore();
 
   const listOxygenationQuery = useQuery({
-    queryKey: ["list-oxigenations"],
+    queryKey: ["list-oxigenations", sortBy, order],
     queryFn: () => OxygenationsService.listOxygenations(sortBy, order),
   });
 

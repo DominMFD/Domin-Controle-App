@@ -1,33 +1,40 @@
-import { IOrder } from "@/types/Order.types";
-import api from "../api";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { db } from "../firebase";
 import { AddOxygenation, Oxygenation } from "../models/Oxygenation";
+import { IOrder } from "@/types/Order.types";
+
+const COLLECTION = "oxygenations";
 
 export const OxygenationsAdapter = {
   async addOxygenation(oxygenation: AddOxygenation) {
     try {
-      const response = api.post("oxygenation", oxygenation);
-      return response;
+      await addDoc(collection(db, COLLECTION), oxygenation);
     } catch {
-      throw new Error("erro ao criar exame");
+      throw new Error("erro ao criar oxigenação");
     }
   },
 
-  async listOxygenations(sortBy: string, order: IOrder) {
+  async listOxygenations(sortBy: string, order: IOrder): Promise<Oxygenation[]> {
     try {
-      const response = api.get("oxygenation", {
-        params: { sortBy, order },
-      });
-
-      return response;
+      const q = query(collection(db, COLLECTION), orderBy(sortBy, order));
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map(d => ({ id: d.id, ...d.data() }) as Oxygenation);
     } catch {
-      throw new Error("erro ao listar as oxygenações");
+      throw new Error("erro ao listar as oxigenações");
     }
   },
 
   async deleteOxygenation(id: Oxygenation["id"]) {
     try {
-      const response = api.delete(`oxygenation/${id}`);
-      return response;
+      await deleteDoc(doc(db, COLLECTION, id));
     } catch {
       throw new Error("erro ao deletar oxigenação");
     }

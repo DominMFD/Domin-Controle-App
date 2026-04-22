@@ -3,7 +3,7 @@ import { IOrder } from "@/types/Order.types";
 import { create } from "zustand";
 
 type useExamsScreenStoreType = {
-  idForDelete: number | null;
+  idForDelete: string | null;
   choseIdForDelete: (id: Exam["id"] | null) => void;
   order: IOrder;
   setOrder: (order: IOrder) => void;
