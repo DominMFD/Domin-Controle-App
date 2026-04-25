@@ -1,13 +1,4 @@
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import { db } from "../firebase";
+import firestore from "@react-native-firebase/firestore";
 import { AddOxygenation, Oxygenation } from "../models/Oxygenation";
 import { IOrder } from "@/types/Order.types";
 
@@ -16,7 +7,7 @@ const COLLECTION = "oxygenations";
 export const OxygenationsAdapter = {
   async addOxygenation(oxygenation: AddOxygenation) {
     try {
-      await addDoc(collection(db, COLLECTION), oxygenation);
+      await firestore().collection(COLLECTION).add(oxygenation);
     } catch {
       throw new Error("erro ao criar oxigenação");
     }
@@ -24,9 +15,18 @@ export const OxygenationsAdapter = {
 
   async listOxygenations(sortBy: string, order: IOrder): Promise<Oxygenation[]> {
     try {
-      const q = query(collection(db, COLLECTION), orderBy(sortBy, order));
-      const snapshot = await getDocs(q);
-      return snapshot.docs.map(d => ({ id: d.id, ...d.data() }) as Oxygenation);
+      const snapshot = await firestore()
+        .collection(COLLECTION)
+        .orderBy(sortBy, order)
+        .get();
+      return snapshot.docs.map(doc => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          date: data.date?.toDate() ?? new Date(),
+        } as Oxygenation;
+      });
     } catch {
       throw new Error("erro ao listar as oxigenações");
     }
@@ -34,7 +34,7 @@ export const OxygenationsAdapter = {
 
   async deleteOxygenation(id: Oxygenation["id"]) {
     try {
-      await deleteDoc(doc(db, COLLECTION, id));
+      await firestore().collection(COLLECTION).doc(id).delete();
     } catch {
       throw new Error("erro ao deletar oxigenação");
     }

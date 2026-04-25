@@ -40,7 +40,8 @@ Screen → Zustand store (UI state) + React Query hook (server state)
 - **TanStack React Query** manages all server state; `queryClient` is in `utils/queryClient.ts`
 - **Adapters** (`services/adapters/`) are the only place that call Firebase; they catch errors and return Portuguese messages
 - **React Hook Form + Zod** handle all form state and validation
-- Firebase is initialized in `services/firebase.ts`; requires `EXPO_PUBLIC_FIREBASE_*` env vars (see `.env.example`)
+- Firebase is initialized automatically by `@react-native-firebase` via `google-services.json` (Android) and `GoogleService-Info.plist` (iOS) — no manual `initializeApp()` needed
+- App Check (Play Integrity / App Attest) is configured via the `@react-native-firebase/app-check` config plugin in `app.json`
 
 ### Firestore Collections
 
