@@ -1,3 +1,4 @@
+import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 import storage from "@react-native-firebase/storage";
 import { AddMedicine, Medicine } from "../models/Medicine";
@@ -7,6 +8,10 @@ const COLLECTION = "medicines";
 export const MedicineAdapter = {
   async addMedicine(medicine: AddMedicine) {
     try {
+      if (!auth().currentUser) {
+        await auth().signInAnonymously();
+      }
+
       const filename = `medicines/${Date.now()}_${medicine.image.name ?? "image.jpg"}`;
       const ref = storage().ref(filename);
       await ref.putFile(medicine.image.uri);
@@ -18,15 +23,17 @@ export const MedicineAdapter = {
         description: medicine.description,
         image: imageUrl,
       });
-    } catch {
-      throw new Error("erro ao criar remédio");
+    } catch (error) {
+      throw new Error("erro ao criar remédio: " + error);
     }
   },
 
   async listAllMedicine(): Promise<Medicine[]> {
     try {
       const snapshot = await firestore().collection(COLLECTION).get();
-      return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }) as Medicine);
+      return snapshot.docs.map(
+        doc => ({ id: doc.id, ...doc.data() }) as Medicine,
+      );
     } catch {
       throw new Error("erro ao listar remédios");
     }
