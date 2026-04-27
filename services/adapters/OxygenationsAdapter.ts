@@ -13,7 +13,10 @@ export const OxygenationsAdapter = {
     }
   },
 
-  async listOxygenations(sortBy: string, order: IOrder): Promise<Oxygenation[]> {
+  async listOxygenations(
+    sortBy: string,
+    order: IOrder,
+  ): Promise<Oxygenation[]> {
     try {
       const snapshot = await firestore()
         .collection(COLLECTION)

@@ -4,13 +4,24 @@ import { Controller } from "react-hook-form";
 import MainInput from "@/components/MainInput/MainInput";
 import * as ImagePicker from "expo-image-picker";
 import UploadIcon from "@/assets/images/icons/UploadIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image } from "expo-image";
 import { FileAdapter } from "@/types/File.types";
 
-export default function MedicineForm() {
-  const { control, errors, setValue, watch } = useMedicineForm();
-  const [imageUrl, setImage] = useState<string | null>(null);
+interface MedicineFormProps {
+  existingImageUrl?: string;
+}
+
+export default function MedicineForm({ existingImageUrl }: MedicineFormProps) {
+  const { control, errors, setValue } = useMedicineForm();
+  const [imageUrl, setImage] = useState<string | null>(
+    existingImageUrl ?? null,
+  );
+
+  useEffect(() => {
+    setImage(existingImageUrl ?? null);
+  }, [existingImageUrl]);
+
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
@@ -31,10 +42,7 @@ export default function MedicineForm() {
 
   return (
     <View>
-      <View
-        className="flex-row justify-between items-center gap-[24px]
-        "
-      >
+      <View className="flex-row justify-between items-center gap-[24px]">
         <Controller
           control={control}
           name="name"
@@ -65,6 +73,7 @@ export default function MedicineForm() {
                 keyboardType="numeric"
                 textContentType="flightNumber"
                 {...field}
+                value={field.value !== undefined ? String(field.value) : ""}
                 onChangeText={text => field.onChange(Number(text))}
               />
             </View>

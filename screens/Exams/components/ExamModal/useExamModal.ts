@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import { ExamSchema, ExamSchemaType, RawInput } from "./AddExamSchema";
+import { ExamSchema, ExamSchemaType, RawInput } from "./ExamSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useEffect } from "react";
 import { Animated, Easing } from "react-native";
 import { useExamMutation } from "../../useExamMutation";
 
-export function useAddExamModal() {
+export function useExamModal() {
   const { addExamMutation } = useExamMutation();
   const {
     control,

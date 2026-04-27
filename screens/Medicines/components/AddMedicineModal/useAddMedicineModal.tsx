@@ -1,17 +1,22 @@
 import { useForm } from "react-hook-form";
 import {
-  MedicineSchema,
-  MedicineSchemaType,
+  EditMedicineSchema,
+  EditMedicineSchemaType,
 } from "../MedicineForm/MedicineSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMedicineMutation } from "../../useMedicineMutation";
+import { useMedicineModalStore } from "../../useMedicineModalStore";
 import { useEffect, useRef } from "react";
 import { Animated, Easing } from "react-native";
 
 export function useAddMedicineModal() {
-  const { addMedicineMutation } = useMedicineMutation();
-  const methods = useForm<MedicineSchemaType>({
-    resolver: zodResolver(MedicineSchema),
+  const { addMedicineMutation, editMedicineMutation } = useMedicineMutation();
+  const { selectedMedicine } = useMedicineModalStore();
+
+  const isEditing = selectedMedicine !== null;
+
+  const methods = useForm<EditMedicineSchemaType>({
+    resolver: zodResolver(EditMedicineSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -20,18 +25,54 @@ export function useAddMedicineModal() {
     },
   });
 
-  const onMedicineSubmit = async (data: MedicineSchemaType) => {
-    await addMedicineMutation.mutateAsync(data);
+  useEffect(() => {
+    if (selectedMedicine) {
+      methods.reset({
+        name: selectedMedicine.name,
+        description: selectedMedicine.description,
+        dosage: selectedMedicine.dosage,
+        image: selectedMedicine.image,
+      });
+    } else {
+      methods.reset({
+        name: "",
+        description: "",
+        dosage: 0,
+        image: undefined,
+      });
+    }
+  }, [selectedMedicine]);
 
+  const onMedicineSubmit = async (data: EditMedicineSchemaType) => {
+    await addMedicineMutation.mutateAsync({
+      name: data.name,
+      dosage: data.dosage,
+      description: data.description,
+      image: data.image as { uri: string; name: string; type: string },
+    });
+    methods.reset();
+  };
+
+  const onMedicineEdit = async (data: EditMedicineSchemaType) => {
+    if (!selectedMedicine) return;
+    await editMedicineMutation.mutateAsync({
+      id: selectedMedicine.id,
+      name: data.name,
+      dosage: data.dosage,
+      description: data.description,
+      image: data.image,
+    });
     methods.reset();
   };
 
   const opacity = useRef(new Animated.Value(1)).current;
+  const isPending =
+    addMedicineMutation.isPending || editMedicineMutation.isPending;
 
   useEffect(() => {
     let loop: Animated.CompositeAnimation | null = null;
 
-    if (addMedicineMutation.isPending) {
+    if (isPending) {
       loop = Animated.loop(
         Animated.sequence([
           Animated.timing(opacity, {
@@ -55,12 +96,16 @@ export function useAddMedicineModal() {
     }
 
     return () => loop?.stop();
-  }, [addMedicineMutation.isPending, opacity]);
+  }, [isPending, opacity]);
 
   return {
     methods,
     onMedicineSubmit,
+    onMedicineEdit,
     opacity,
+    isPending,
+    isEditing,
     addMedicineMutation,
+    editMedicineMutation,
   };
 }

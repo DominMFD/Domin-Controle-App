@@ -4,13 +4,13 @@ import MainButton from "@/components/MainButton/MainButton";
 import MainInput from "@/components/MainInput/MainInput";
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, Animated, Easing } from "react-native";
-import { useAddExamModal } from "./useAddExamModal";
-import { Controller, Form } from "react-hook-form";
+import { useExamModal } from "./useExamModal";
+import { Controller } from "react-hook-form";
 import CurrencyInput from "react-native-currency-input";
 import { PapperIcon } from "@/assets/images/icons/PapperIcon";
 import { useExamModalStore } from "../../useExamModalStore";
 
-export default function AddExamModal() {
+export default function ExamModal() {
   const { modalOpen, toggleModal } = useExamModalStore();
   const {
     control,
@@ -20,7 +20,7 @@ export default function AddExamModal() {
     handleChange,
     addExamMutation,
     opacity,
-  } = useAddExamModal();
+  } = useExamModal();
 
   return (
     <AddModalTemplate modalOpen={modalOpen} toggleModal={toggleModal}>

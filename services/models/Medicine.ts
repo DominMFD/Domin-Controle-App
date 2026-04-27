@@ -12,3 +12,7 @@ export type AddMedicine = Omit<
   Omit<Medicine, "image"> & { image: FileAdapter },
   "id"
 >;
+
+export type EditMedicine = Omit<Medicine, "image"> & {
+  image: FileAdapter | string;
+};

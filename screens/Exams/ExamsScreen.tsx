@@ -3,7 +3,7 @@ import React from "react";
 import FieldOrdering from "../../components/FieldOrdering/FieldOrdering";
 import { Fields } from "../../components/FieldOrdering/FieldOrdering.types";
 import AddButton from "@/components/AddButton/AddButton";
-import AddExamModal from "./components/AddExamModal/AddExamModal";
+import ExamModal from "./components/ExamModal/ExamModal";
 import { Animated, View } from "react-native";
 import { useExamModalStore } from "./useExamModalStore";
 import { useExamQuery } from "./useExamQuery";
@@ -41,7 +41,7 @@ export default function ExamsScreen() {
         <ExamsList exams={listExamQuery.data ?? []} />
       )}
       <AddButton onPress={toggleModal} />
-      <AddExamModal />
+      <ExamModal />
       <DeleteModal
         deleteFn={handleRemoveExam}
         toggleModal={toggleDeleteModal}

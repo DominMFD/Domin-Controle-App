@@ -1,5 +1,5 @@
 import { MedicineAdapter } from "./adapters/MedicineAdapter";
-import { AddMedicine } from "./models/Medicine";
+import { AddMedicine, EditMedicine } from "./models/Medicine";
 
 export const MedicineService = {
   async addMedicine(medicine: AddMedicine) {
@@ -8,5 +8,13 @@ export const MedicineService = {
 
   async listAllMedicine() {
     return MedicineAdapter.listAllMedicine();
+  },
+
+  async editMedicine(medicine: EditMedicine) {
+    return MedicineAdapter.editMedicine(medicine);
+  },
+
+  async deleteMedicine(id: string) {
+    return MedicineAdapter.deleteMedicine(id);
   },
 };
